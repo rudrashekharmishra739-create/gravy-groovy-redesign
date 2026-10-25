@@ -368,6 +368,7 @@
       });
     }
 
+    window.__renderCartPage = renderCartPage;
     renderCartPage();
   }
 
