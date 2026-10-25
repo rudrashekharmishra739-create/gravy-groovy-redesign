@@ -129,6 +129,8 @@
     overlayWrap.classList.remove("open", "cart-mode", "checkout-mode");
     document.body.style.overflow = "";
   }
+  window.openCart = openCart;
+  window.closeCart = closeOverlay;
 
   backdrop.addEventListener("click", closeOverlay);
   cartPanel.querySelector(".cart-close").addEventListener("click", closeOverlay);
