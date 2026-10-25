@@ -316,7 +316,8 @@
           </div>
         `).join("");
       }
-      pageTotalEl.textContent = cartTotal();
+      var pt = cartPage.querySelector(".cart-total-val");
+      if (pt) pt.textContent = cartTotal();
       updateBadges();
     }
 
