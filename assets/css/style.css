@@ -214,3 +214,52 @@ p { margin: 0 0 1em; }
 /* Pulse for Order Now CTA */
 .pulse { animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(212,160,23,.5); } 50% { box-shadow: 0 0 0 12px rgba(212,160,23,0); } }
+
+/* Cart button */
+.cart-btn { background: var(--color-primary); color: #fff; border: none; border-radius: 999px; padding: .5rem 1rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem; box-shadow: var(--shadow); transition: transform .15s ease, background .2s ease; }
+.cart-btn:hover { background: var(--color-primary-dark); transform: translateY(-2px); }
+.cart-count { background: var(--color-accent); color: #2b2118; border-radius: 999px; padding: .1rem .5rem; font-size: .78rem; font-weight: 700; min-width: 1.4rem; text-align: center; }
+
+/* Add button */
+.menu-item__right { display: flex; align-items: center; gap: .8rem; }
+.add-btn { background: var(--color-accent); color: #2b2118; border: none; border-radius: 999px; padding: .35rem .8rem; font-weight: 600; font-size: .8rem; cursor: pointer; transition: transform .15s ease, background .2s ease; white-space: nowrap; }
+.add-btn:hover { transform: translateY(-2px); background: #e0b020; }
+.add-btn.added { background: var(--color-success); color: #fff; }
+
+/* Fly-to-cart */
+.fly-item { position: fixed; z-index: 9999; font-size: 1.6rem; pointer-events: none; transform: translate(-50%,-50%); }
+
+/* Cart overlay */
+.cart-overlay { position: fixed; inset: 0; z-index: 1000; display: none; }
+.cart-overlay.open { display: block; }
+.cart-backdrop { position: absolute; inset: 0; background: rgba(20,12,10,.45); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); animation: fadeIn .25s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.cart-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: min(560px, 92%); max-height: 88vh; background: var(--color-surface); border-radius: var(--radius); box-shadow: var(--shadow-lg); display: none; flex-direction: column; overflow: hidden; animation: popIn .3s cubic-bezier(.22,1,.36,1); }
+.cart-overlay.open.cart-mode .cart-panel:first-of-type,
+.cart-overlay.open.checkout-mode .checkout-panel { display: flex; }
+.cart-panel.checkout-panel { }
+@keyframes popIn { from { opacity: 0; transform: translate(-50%,-48%) scale(.96); } to { opacity: 1; transform: translate(-50%,-50%) scale(1); } }
+.cart-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.4rem; border-bottom: 1px solid var(--color-border); }
+.cart-header h2 { margin: 0; font-size: 1.4rem; }
+.cart-close { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--color-muted); }
+.cart-items { padding: 1rem 1.4rem; overflow-y: auto; flex: 1; display: grid; gap: .8rem; }
+.cart-line { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .8rem; background: var(--color-bg); border-radius: var(--radius-sm); border: 1px solid var(--color-border); }
+.cart-line__info { display: grid; gap: .2rem; }
+.cart-line__price { color: var(--color-muted); font-size: .85rem; }
+.cart-line__controls { display: flex; align-items: center; gap: .4rem; }
+.qty-btn { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--color-border); background: var(--color-surface); cursor: pointer; font-weight: 700; }
+.qty-btn:hover { background: var(--color-accent-soft); }
+.qty-val { min-width: 1.5rem; text-align: center; font-weight: 600; }
+.remove-btn { background: none; border: none; cursor: pointer; font-size: 1.1rem; }
+.cart-footer { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.4rem; border-top: 1px solid var(--color-border); gap: 1rem; flex-wrap: wrap; }
+.cart-total { font-size: 1.1rem; }
+.checkout-form { padding: 1.4rem; display: grid; gap: 1rem; overflow-y: auto; max-height: 70vh; }
+.cart-summary { padding: .8rem; background: var(--color-accent-soft); border-radius: var(--radius-sm); }
+
+/* hide checkout panel by default */
+.cart-overlay.open.checkout-mode .cart-panel:first-of-type { display: none; }
+
+@media (max-width: 600px) {
+  .cart-panel { width: 96%; }
+  .menu-item__right { flex-direction: column; align-items: flex-end; gap: .4rem; }
+}
