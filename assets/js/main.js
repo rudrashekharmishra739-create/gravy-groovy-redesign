@@ -288,6 +288,88 @@
     });
   });
 
+  // ---------- Cart page rendering ----------
+  const cartPage = document.getElementById("cart-page");
+  if (cartPage) {
+    const pageItemsEl = cartPage.querySelector(".cart-page-items");
+    const pageTotalEl = cartPage.querySelector(".cart-total-val");
+    const pageCheckoutBtn = cartPage.querySelector(".cart-checkout-page");
+    const checkoutPage = document.getElementById("checkout-page");
+    const pageSummary = checkoutPage ? checkoutPage.querySelector(".cart-page-summary") : null;
+
+    function renderCartPage() {
+      if (cart.length === 0) {
+        pageItemsEl.innerHTML = '<p class="lead" style="text-align:center;padding:2rem;">Your cart is empty. <a href="menu.html">Browse menu</a></p>';
+      } else {
+        pageItemsEl.innerHTML = cart.map((item, idx) => `
+          <div class="cart-line" data-idx="${idx}">
+            <div class="cart-line__info">
+              <strong>${item.name}</strong>
+              <span class="cart-line__price">₹${item.price} × ${item.qty} = ₹${item.price * item.qty}</span>
+            </div>
+            <div class="cart-line__controls">
+              <button class="qty-btn" data-action="dec" data-idx="${idx}" type="button" aria-label="Decrease">−</button>
+              <span class="qty-val">${item.qty}</span>
+              <button class="qty-btn" data-action="inc" data-idx="${idx}" type="button" aria-label="Increase">+</button>
+              <button class="remove-btn" data-action="remove" data-idx="${idx}" type="button" aria-label="Remove">🗑</button>
+            </div>
+          </div>
+        `).join("");
+      }
+      pageTotalEl.textContent = cartTotal();
+      updateBadges();
+    }
+
+    pageItemsEl.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-action]");
+      if (!btn) return;
+      const idx = parseInt(btn.dataset.idx, 10);
+      const action = btn.dataset.action;
+      if (action === "inc") cart[idx].qty += 1;
+      else if (action === "dec") { cart[idx].qty -= 1; if (cart[idx].qty <= 0) cart.splice(idx, 1); }
+      else if (action === "remove") cart.splice(idx, 1);
+      saveCart(cart);
+      renderCartPage();
+    });
+
+    if (pageCheckoutBtn) {
+      pageCheckoutBtn.addEventListener("click", () => {
+        if (cart.length === 0) { alert("Your cart is empty."); return; }
+        cartPage.hidden = true;
+        checkoutPage.hidden = false;
+        if (pageSummary) pageSummary.innerHTML = `<p class="lead"><strong>Order total: ₹${cartTotal()}</strong> (${cartCount()} items)</p>`;
+      });
+    }
+
+    const backBtn = document.querySelector("[data-back-to-cart]");
+    if (backBtn) {
+      backBtn.addEventListener("click", () => {
+        checkoutPage.hidden = true;
+        cartPage.hidden = false;
+      });
+    }
+
+    const pageForm = document.querySelector("[data-checkout-page]");
+    if (pageForm) {
+      pageForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const btn = pageForm.querySelector("button[type=submit]");
+        const msg = pageForm.querySelector(".form-success");
+        if (btn) { btn.disabled = true; btn.textContent = "Placing..."; }
+        setTimeout(() => {
+          if (btn) { btn.disabled = false; btn.textContent = "Place Order"; }
+          if (msg) { msg.hidden = false; pageForm.reset(); }
+          cart = [];
+          saveCart(cart);
+          renderCartPage();
+          setTimeout(() => { msg.hidden = true; }, 2000);
+        }, 900);
+      });
+    }
+
+    renderCartPage();
+  }
+
   // init
   renderCart();
   updateBadges();
