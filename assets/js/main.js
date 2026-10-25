@@ -215,44 +215,59 @@
     const nameEl = item.querySelector(".menu-item__name");
     const priceEl = item.querySelector(".menu-item__price");
     if (!nameEl || !priceEl) return;
-    const name = nameEl.textContent.trim();
-    const priceMatch = priceEl.textContent.match(/[\d]+/);
-    const price = priceMatch ? parseInt(priceMatch[0], 10) : 0;
-    // add button
-    const right = document.createElement("div");
-    right.className = "menu-item__right";
-    // move price into right
-    const priceNode = priceEl;
-    const btn = document.createElement("button");
-    btn.className = "add-btn";
-    btn.type = "button";
-    btn.textContent = "+ Add";
-    btn.setAttribute("aria-label", "Add " + name + " to cart");
-    // wrap existing price
+    const baseName = nameEl.textContent.trim();
+    const variantsAttr = item.getAttribute("data-variants");
+    const variants = variantsAttr ? variantsAttr.split(",").map((v) => {
+      const [vname, vprice] = v.split(":");
+      return { name: vname.trim(), price: parseInt(vprice, 10) };
+    }) : null;
+
+    function getSelection() {
+      if (!variants) {
+        const priceMatch = priceEl.textContent.match(/[\d]+/);
+        return { name: baseName, price: priceMatch ? parseInt(priceMatch[0], 10) : 0 };
+      }
+      const sel = item.querySelector(".variant-select");
+      const chosen = sel ? variants.find((v) => v.price === parseInt(sel.value, 10)) : variants[0];
+      const v = chosen || variants[0];
+      return { name: baseName + " — " + v.name, price: v.price };
+    }
+
     if (!priceEl.parentElement.classList.contains("menu-item__right")) {
       const wrapper = document.createElement("div");
       wrapper.className = "menu-item__right";
       priceEl.parentNode.insertBefore(wrapper, priceEl);
       wrapper.appendChild(priceEl);
+    }
+    const wrapper = priceEl.parentElement;
+    if (!wrapper.querySelector(".add-btn")) {
+      const btn = document.createElement("button");
+      btn.className = "add-btn";
+      btn.type = "button";
+      btn.textContent = "+ Add";
+      btn.setAttribute("aria-label", "Add " + baseName + " to cart");
       wrapper.appendChild(btn);
     }
+    const btn = wrapper.querySelector(".add-btn");
+
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
-      addToCart(name, price);
+      const sel = getSelection();
+      addToCart(sel.name, sel.price);
       flyToCart(btn);
-      btn.textContent = "âœ“ Added";
+      btn.textContent = "? Added";
       btn.classList.add("added");
       setTimeout(() => { btn.textContent = "+ Add"; btn.classList.remove("added"); }, 1200);
     });
-    // click whole row also adds (except controls)
     item.style.cursor = "pointer";
     item.addEventListener("click", (e) => {
       if (e.target.closest(".add-btn")) return;
-      addToCart(name, price);
+      if (e.target.closest(".variant-select")) return;
+      const sel = getSelection();
+      addToCart(sel.name, sel.price);
       flyToCart(item);
     });
   });
-
   // ---------- Scroll reveal ----------
   const revealEls = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window && revealEls.length) {

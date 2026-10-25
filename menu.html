@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=6">
+<link rel="stylesheet" href="assets/css/style.css?v=7">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -69,10 +69,10 @@
 
       <div class="menu-section">
         <h3>Breads &amp; Rice</h3>
-        <div class="menu-item"><div><div class="menu-item__name">Butter Naan / Garlic Naan</div><div class="menu-item__desc">Soft tandoor-baked bread.</div></div><div class="menu-item__price">₹60 / ₹80</div></div>
+        <div class="menu-item" data-variants="Butter Naan:60,Garlic Naan:80"><div><div class="menu-item__name">Butter Naan / Garlic Naan</div><div class="menu-item__desc">Soft tandoor-baked bread.</div></div><div class="menu-item__right"><select class="variant-select"><option value="60">Butter Naan — ₹60</option><option value="80">Garlic Naan — ₹80</option></select><div class="menu-item__price">₹60 / ₹80</div></div></div>
         <div class="menu-item"><div><div class="menu-item__name">Laccha Paratha</div><div class="menu-item__desc">Layered whole-wheat flatbread.</div></div><div class="menu-item__price">₹70</div></div>
-        <div class="menu-item"><div><div class="menu-item__name">Steamed Rice / Jeera Rice</div><div class="menu-item__desc">Fragrant basmati.</div></div><div class="menu-item__price">₹90 / ₹120</div></div>
-        <div class="menu-item"><div><div class="menu-item__name">Biryani (Veg / Chicken / Mutton)</div><div class="menu-item__desc">Dum-cooked aromatic biryani.</div></div><div class="menu-item__price">₹260 / ₹320 / ₹420</div></div>
+        <div class="menu-item" data-variants="Steamed Rice:90,Jeera Rice:120"><div><div class="menu-item__name">Steamed Rice / Jeera Rice</div><div class="menu-item__desc">Fragrant basmati.</div></div><div class="menu-item__right"><select class="variant-select"><option value="90">Steamed Rice — ₹90</option><option value="120">Jeera Rice — ₹120</option></select><div class="menu-item__price">₹90 / ₹120</div></div></div>
+        <div class="menu-item" data-variants="Veg Biryani:260,Chicken Biryani:320,Mutton Biryani:420"><div><div class="menu-item__name">Biryani (Veg / Chicken / Mutton)</div><div class="menu-item__desc">Dum-cooked aromatic biryani.</div></div><div class="menu-item__right"><select class="variant-select"><option value="260">Veg — ₹260</option><option value="320">Chicken — ₹320</option><option value="420">Mutton — ₹420</option></select><div class="menu-item__price">₹260 / ₹320 / ₹420</div></div></div>
       </div>
 
       <div class="menu-section">
@@ -88,7 +88,7 @@
         <div class="menu-item"><div><div class="menu-item__name">Iced Tea (Lemon / Peach)</div><div class="menu-item__desc">Freshly brewed, chilled.</div></div><div class="menu-item__price">₹120</div></div>
         <div class="menu-item"><div><div class="menu-item__name">Fresh Lime Soda</div><div class="menu-item__desc">Sweet or salted.</div></div><div class="menu-item__price">₹90</div></div>
         <div class="menu-item"><div><div class="menu-item__name">Lassi (Sweet / Salted)</div><div class="menu-item__desc">Chilled yogurt drink.</div></div><div class="menu-item__price">₹110</div></div>
-        <div class="menu-item"><div><div class="menu-item__name">Filter Coffee / Masala Chai</div><div class="menu-item__desc">Hot, aromatic.</div></div><div class="menu-item__price">₹60 / ₹40</div></div>
+        <div class="menu-item" data-variants="Filter Coffee:60,Masala Chai:40"><div><div class="menu-item__name">Filter Coffee / Masala Chai</div><div class="menu-item__desc">Hot, aromatic.</div></div><div class="menu-item__right"><select class="variant-select"><option value="60">Filter Coffee — ₹60</option><option value="40">Masala Chai — ₹40</option></select><div class="menu-item__price">₹60 / ₹40</div></div></div>
       </div>
 
       <div class="text-center mt-2">
@@ -113,7 +113,7 @@
     </div>
   </div>
 </footer>
-<script src="assets/js/main.js?v=6" defer></script>
+<script src="assets/js/main.js?v=7" defer></script>
 <script>document.querySelectorAll('.yr').forEach(e=>e.textContent=new Date().getFullYear());</script>
 </body>
 </html>

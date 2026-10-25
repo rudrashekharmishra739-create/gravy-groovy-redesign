@@ -227,6 +227,10 @@ p { margin: 0 0 1em; }
 .add-btn:hover { transform: translateY(-2px); background: #e0b020; }
 .add-btn.added { background: var(--color-success); color: #fff; }
 
+/* Variant select */
+.variant-select { padding: .35rem .6rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font: inherit; background: var(--color-surface); color: var(--color-text); cursor: pointer; }
+.variant-select:focus { outline: 2px solid var(--color-accent); }
+
 /* Fly-to-cart */
 .fly-item { position: fixed; z-index: 9999; font-size: 1.6rem; pointer-events: none; transform: translate(-50%,-50%); }
 
