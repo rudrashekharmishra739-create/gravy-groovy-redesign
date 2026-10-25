@@ -1,0 +1,7 @@
+/* PillNav CSS — from React Bits (included for React-based integrations) */
+.pill-nav { --pn-roll: calc(var(--pn-inner) / 2 + 0.7em); position: relative; display: inline-flex; align-items: center; gap: var(--pn-gap); max-width: 100%; font-size: var(--pn-font); line-height: 1; -webkit-tap-highlight-color: transparent; }
+.pill-nav[data-collapsed] { display: flex; width: 100%; justify-content: space-between; }
+.pill-nav[data-layout='joined'] { gap: 2px; padding: var(--pn-pad); border-radius: 999px; }
+.pill-nav__surface { background: var(--pn-surface); box-shadow: var(--pn-shadow); -webkit-backdrop-filter: var(--pn-blur); backdrop-filter: var(--pn-blur); }
+.pill-nav__rim { position: absolute; inset: 0; z-index: 4; border-radius: inherit; box-shadow: inset 0 0 0 1px var(--pn-edge), inset 0 1px 0 var(--pn-rim); pointer-events: none; }
+/* (truncated for brevity — full CSS in the React Bits source) */
